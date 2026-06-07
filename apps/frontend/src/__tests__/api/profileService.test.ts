@@ -26,7 +26,7 @@ describe('profileEditService', () => {
         Twitter: 'https://twitter.com/updated',
       },
       skills: [
-        { name: 'Go', level: 'advanced' as const },
+        { name: 'Go', level: 'expert' as const },
         { name: 'Rust', level: 'beginner' as const },
       ],
     }
