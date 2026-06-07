@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { profileEditSchema, ProfileEditValues } from '@/types/profile/edit/profile.schema'
-import { profileEditService } from '@/services/profile/edit/profileService'
 import { Button } from '@/components/ui/Button'
 import { FormErrorMessage } from '@/components/ui/FormErrorMessage'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
@@ -16,7 +15,7 @@ import { useProfile } from '@/hooks/profile/useProfile'
 type Props = {}
 
 export const ProfileEditForm = ({}: Props) => {
-  const { profile, loading, error } = useProfile()
+  const { profile, loading, error, updateProfile } = useProfile()
   const [serverError, setServerError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
 
@@ -41,7 +40,7 @@ export const ProfileEditForm = ({}: Props) => {
     setSaved(false)
     try {
       // { key, value }[] → Record<string, string> に変換してから送信
-      await profileEditService.update({
+      await updateProfile({
         ...data,
         links: Object.fromEntries(data.links.map(({ key, value }) => [key, value])),
       })
