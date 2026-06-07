@@ -2,19 +2,21 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { Profile } from '@/types/profile/shared/profile.types'
 import { profileEditSchema, ProfileEditValues } from '@/types/profile/edit/profile.schema'
 import { profileEditService } from '@/services/profile/edit/profileService'
 import { Button } from '@/components/ui/Button'
 import { FormErrorMessage } from '@/components/ui/FormErrorMessage'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { BasicInfoSection } from './sections/BasicInfoSection'
 import { AddressSection } from './sections/AddressSection'
 import { LinksSection } from './sections/LinksSection'
 import { SkillsSection } from './sections/SkillsSection'
+import { useProfile } from '@/hooks/profile/useProfile'
 
-type Props = { profile: Profile }
+type Props = {}
 
-export const ProfileEditForm = ({ profile }: Props) => {
+export const ProfileEditForm = ({}: Props) => {
+  const { profile, loading, error } = useProfile()
   const [serverError, setServerError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
 
@@ -26,12 +28,11 @@ export const ProfileEditForm = ({ profile }: Props) => {
   } = useForm<ProfileEditValues>({
     resolver: zodResolver(profileEditSchema),
     defaultValues: {
-      name: profile.name,
-      bio: profile.bio,
-      address: profile.address,
-      // Record<string, string> → { key, value }[] に変換してフォームで扱えるようにする
-      links: Object.entries(profile.links).map(([key, value]) => ({ key, value })),
-      skills: profile.skills,
+      name: '',
+      bio: '',
+      address: { prefecture: '', city: '', street: '' },
+      links: [],
+      skills: [],
     },
   })
 
@@ -49,6 +50,10 @@ export const ProfileEditForm = ({ profile }: Props) => {
       setServerError(e instanceof Error ? e.message : '更新に失敗しました')
     }
   }
+
+  if (loading) return <LoadingSpinner />
+  if (error) return <FormErrorMessage message={error} />
+  if (!profile) return <FormErrorMessage message="プロフィール情報が見つかりません" />
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

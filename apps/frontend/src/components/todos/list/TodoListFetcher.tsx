@@ -1,11 +1,7 @@
 import { TodoList } from './TodoList'
 
-export const TodoListFetcher = async () => {
-  // SSR で API から初期データを取得
-  const response = await fetch('http://localhost:3000/api/todos', {
-    cache: 'no-store', // SSR 毎回取得
-  })
-  const initialTodos = response.ok ? await response.json() : []
-
-  return <TodoList initialTodos={initialTodos} />
+export const TodoListFetcher = () => {
+  // クライアント側で useTodos を使って管理
+  // SSR データなし → クライアント側で初期化時に fetchTodos を実行
+  return <TodoList initialTodos={[]} />
 }

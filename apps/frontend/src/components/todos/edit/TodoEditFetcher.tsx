@@ -1,17 +1,13 @@
-import { notFound } from 'next/navigation'
-import { todoRepository } from '@/services/todo/shared/todoRepository'
 import { TodoEditForm } from './TodoEditForm'
 
 type Props = { id: string }
 
-export const TodoEditFetcher = async ({ id }: Props) => {
-  const todo = todoRepository.getById(id)
-  if (!todo) notFound()
-
+export const TodoEditFetcher = ({ id }: Props) => {
+  // クライアント側で useTodoDetail を使って管理
   return (
     <div className="mx-auto max-w-2xl p-4">
       <h1 className="mb-4 text-2xl font-bold">TODO を編集</h1>
-      <TodoEditForm todo={todo} />
+      <TodoEditForm id={id} />
     </div>
   )
 }

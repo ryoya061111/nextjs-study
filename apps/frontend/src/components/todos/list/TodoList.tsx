@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Todo } from '@/types/todo/shared/todo.types'
 import { TodoFormValues } from '@/types/todo/shared/todo.schema'
 import { TodoItem } from './TodoItem'
@@ -12,12 +12,21 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { FormErrorMessage } from '@/components/ui/FormErrorMessage'
 
 interface Props {
-  initialTodos: Todo[] // SSR で取得した初期データ
+  initialTodos: Todo[] // SSR で取得した初期データ（可能な場合）
 }
 
 export const TodoList = ({ initialTodos }: Props) => {
-  const { todos, loading, error, createTodo, toggleTodo, deleteTodo } = useTodos(initialTodos)
+  const { todos, loading, error, fetchTodos, createTodo, toggleTodo, deleteTodo } = useTodos(
+    initialTodos
+  )
   const [showForm, setShowForm] = useState(false)
+
+  // 初期化時に fetchTodos を実行（SSR データがない場合）
+  useEffect(() => {
+    if (initialTodos.length === 0) {
+      fetchTodos()
+    }
+  }, [])
 
   const handleCreate = async (data: TodoFormValues) => {
     await createTodo(data)

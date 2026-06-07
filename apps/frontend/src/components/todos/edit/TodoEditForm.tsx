@@ -1,27 +1,31 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Todo } from '@/types/todo/shared/todo.types'
 import { TodoForm } from '../shared/TodoForm'
 import { todoEditService } from '@/services/todo/edit/todoService'
 import { TodoFormValues } from '@/types/todo/shared/todo.schema'
+import { useTodoDetail } from '@/hooks/todo/edit/useTodoDetail'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { FormErrorMessage } from '@/components/ui/FormErrorMessage'
 
 interface Props {
-  todo: Todo
+  id: string
 }
 
-export const TodoEditForm = ({ todo }: Props) => {
-  // [Next.js お約束] useRouter は 'next/navigation' からインポートする（App Router 用）
-  // 'next/router' は Pages Router 用で App Router では使えない
+export const TodoEditForm = ({ id }: Props) => {
   const router = useRouter()
+  const { todo, loading, error } = useTodoDetail(id)
 
   const handleSubmit = async (data: TodoFormValues) => {
+    if (!todo) return
     await todoEditService.update(todo.id, data)
-    router.push('/todos') // 別ページへ遷移（ブラウザの履歴に追加される）
-    // [Next.js お約束] router.refresh() = Server Component のキャッシュを破棄して再フェッチ
-    // push だけでは Server Component のデータが古いまま表示されることがある
+    router.push('/todos')
     router.refresh()
   }
+
+  if (loading) return <LoadingSpinner />
+  if (error) return <FormErrorMessage message={error} />
+  if (!todo) return <FormErrorMessage message="TODO が見つかりません" />
 
   return (
     <TodoForm
