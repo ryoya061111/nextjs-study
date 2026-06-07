@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Todo, CreateTodoRequest } from '@/types/todo.types'
-import { todoService } from '@/services/todoService'
+import { Todo } from '@/types/todo/shared/todo.types'
+import { CreateTodoRequest } from '@/types/todo/list/todo.types'
+import { todoService } from '@/services/todo/todoService'
 
 // 引数：SSR で取得した初期データを受け取る
 export const useTodos = (initialTodos: Todo[]) => {

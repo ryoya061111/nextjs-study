@@ -6,8 +6,8 @@
 // [Next.js お約束] notFound() = next/navigation からインポートするサーバー関数
 // 呼ぶと not-found.tsx が表示される（なければデフォルトの404）
 import { notFound } from 'next/navigation'
-import { todoRepository } from '@/services/todoRepository'
-import { TodoEditForm } from '@/components/todos/TodoEditForm'
+import { todoRepository } from '@/services/todo/todoRepository'
+import { TodoEditForm } from '@/components/todos/edit/TodoEditForm'
 
 // [Next.js お約束] Next.js 15 から params は Promise 型 → await 必須
 type Props = { params: Promise<{ id: string }> }

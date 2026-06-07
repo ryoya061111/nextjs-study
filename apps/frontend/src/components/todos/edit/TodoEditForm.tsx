@@ -1,10 +1,10 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Todo } from '@/types/todo.types'
-import { TodoForm } from './TodoForm'
-import { todoService } from '@/services/todoService'
-import { TodoFormValues } from '@/types/todo.schema'
+import { Todo } from '@/types/todo/shared/todo.types'
+import { TodoForm } from '../shared/TodoForm'
+import { todoService } from '@/services/todo/todoService'
+import { TodoFormValues } from '@/types/todo/shared/todo.schema'
 
 interface Props {
   todo: Todo

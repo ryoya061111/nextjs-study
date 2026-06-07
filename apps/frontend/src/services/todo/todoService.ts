@@ -1,6 +1,8 @@
 // Client Component 専用の API 呼び出し層
 // Server Component からは todoRepository を使うこと（相対URLはサーバー側で解決できない）
-import { Todo, CreateTodoRequest, UpdateTodoRequest } from '@/types/todo.types'
+import { Todo } from '@/types/todo/shared/todo.types'
+import { CreateTodoRequest } from '@/types/todo/list/todo.types'
+import { UpdateTodoRequest } from '@/types/todo/edit/todo.types'
 
 const BASE = '/api/todos'
 

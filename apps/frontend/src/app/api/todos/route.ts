@@ -4,8 +4,8 @@
 // GET /api/todos  → 一覧取得
 // POST /api/todos → 新規作成
 import { NextResponse } from 'next/server'
-import { mockTodos } from '@/services/mockData'
-import { CreateTodoRequest } from '@/types/todo.types'
+import { mockTodos } from '@/services/todo/mockData'
+import { CreateTodoRequest } from '@/types/todo/list/todo.types'
 
 export async function GET() {
   return NextResponse.json(mockTodos)

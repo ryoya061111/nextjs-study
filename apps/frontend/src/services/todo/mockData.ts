@@ -1,4 +1,4 @@
-import { Todo } from '@/types/todo.types'
+import { Todo } from '@/types/todo/shared/todo.types'
 
 // モジュールレベルで宣言 → サーバー起動中はメモリ上に保持される
 // ※ サーバー再起動でリセットされる。本番では DB（MySQL）に置き換える

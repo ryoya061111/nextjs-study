@@ -5,8 +5,8 @@
 // PUT    /api/todos/[id] → 更新
 // DELETE /api/todos/[id] → 削除
 import { NextResponse } from 'next/server'
-import { mockTodos } from '@/services/mockData'
-import { UpdateTodoRequest } from '@/types/todo.types'
+import { mockTodos } from '@/services/todo/mockData'
+import { UpdateTodoRequest } from '@/types/todo/edit/todo.types'
 
 // [Next.js お約束] Next.js 15 から params は Promise 型 → await が必要
 type Params = { params: Promise<{ id: string }> }
