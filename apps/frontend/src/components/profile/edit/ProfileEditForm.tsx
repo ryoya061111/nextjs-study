@@ -16,7 +16,6 @@ type Props = {}
 
 export const ProfileEditForm = ({}: Props) => {
   const { profile, loading, error, updateProfile } = useProfile()
-  const [serverError, setServerError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
 
   const {
@@ -36,18 +35,13 @@ export const ProfileEditForm = ({}: Props) => {
   })
 
   const onSubmit = async (data: ProfileEditValues) => {
-    setServerError(null)
     setSaved(false)
-    try {
-      // { key, value }[] → Record<string, string> に変換してから送信
-      await updateProfile({
-        ...data,
-        links: Object.fromEntries(data.links.map(({ key, value }) => [key, value])),
-      })
-      setSaved(true)
-    } catch (e) {
-      setServerError(e instanceof Error ? e.message : '更新に失敗しました')
-    }
+    // { key, value }[] → Record<string, string> に変換してから送信
+    await updateProfile({
+      ...data,
+      links: Object.fromEntries(data.links.map(({ key, value }) => [key, value])),
+    })
+    setSaved(true)
   }
 
   if (loading) return <LoadingSpinner />
@@ -56,7 +50,7 @@ export const ProfileEditForm = ({}: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-      {serverError && <FormErrorMessage message={serverError} />}
+      {error && <FormErrorMessage message={error} />}
       {saved && <p className="rounded-lg bg-green-50 p-3 text-sm text-green-700">✓ 保存しました</p>}
 
       {/* ① シンプルフィールド */}

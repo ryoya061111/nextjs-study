@@ -26,6 +26,7 @@ export const useProfile = () => {
   }, [])
 
   const updateProfile = useCallback(async (data: UpdatePayload) => {
+    setError(null)
     try {
       const response = await fetch('/api/profile', {
         method: 'PUT',
@@ -35,11 +36,9 @@ export const useProfile = () => {
       if (!response.ok) throw new Error('更新に失敗しました')
       const updated = await response.json()
       setProfile(updated)
-      return updated
     } catch (e) {
       const errorMsg = e instanceof Error ? e.message : '更新に失敗しました'
       setError(errorMsg)
-      throw new Error(errorMsg)
     }
   }, [])
 
