@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { TodoForm } from '../shared/TodoForm'
-import { todoEditService } from '@/services/todo/edit/todoService'
 import { TodoFormValues } from '@/types/todo/shared/todo.schema'
 import { useTodoDetail } from '@/hooks/todo/edit/useTodoDetail'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
@@ -14,11 +13,12 @@ interface Props {
 
 export const TodoEditForm = ({ id }: Props) => {
   const router = useRouter()
-  const { todo, loading, error } = useTodoDetail(id)
+  const { todo, loading, error, updateTodo } = useTodoDetail(id)
 
   const handleSubmit = async (data: TodoFormValues) => {
     if (!todo) return
-    await todoEditService.update(todo.id, data)
+    // hooks の updateTodo を呼び出す
+    await updateTodo(data)
     router.push('/todos')
     router.refresh()
   }
