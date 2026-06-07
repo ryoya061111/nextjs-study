@@ -11,7 +11,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:e2e": "playwright test",
-    "playwright:install": "playwright install --with-deps"
+    "playwright:install": "playwright install --with-deps",
+    "prepare": "git -C ../.. config core.hooksPath apps/frontend/.husky && husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -35,7 +36,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.0.0",
     "jsdom": "^29.1.1",
+    "lint-staged": "^15.0.0",
     "prettier": "^3.8.3",
     "tailwindcss": "^4",
     "typescript": "^5",

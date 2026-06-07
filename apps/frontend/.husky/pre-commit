@@ -1,1 +1,2 @@
-npm test
+#!/bin/sh
+cd apps/frontend && npx lint-staged

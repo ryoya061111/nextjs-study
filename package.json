@@ -1,23 +1,14 @@
-{
+﻿{
   "name": "nextjs-study",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
-    "prepare": "husky",
-    "setup:e2e": "npm run -w apps/frontend playwright:install",
-    "dev": "npm run -w apps/frontend dev",
-    "build": "npm run -w apps/frontend build",
-    "lint": "npm run -w apps/frontend lint",
-    "format": "npm run -w apps/frontend format",
-    "test": "npm run -w apps/frontend test",
-    "test:ui": "npm run -w apps/frontend test:ui",
-    "test:e2e": "npm run -w apps/frontend test:e2e"
-  },
-  "devDependencies": {
-    "husky": "^9.0.0",
-    "lint-staged": "^15.0.0"
+    "setup:e2e": "npm run playwright:install --prefix apps/frontend",
+    "dev": "npm run dev --prefix apps/frontend",
+    "build": "npm run build --prefix apps/frontend",
+    "lint": "npm run lint --prefix apps/frontend",
+    "format": "npm run format --prefix apps/frontend",
+    "test": "npm run test --prefix apps/frontend",
+    "test:ui": "npm run test:ui --prefix apps/frontend",
+    "test:e2e": "npm run test:e2e --prefix apps/frontend"
   }
 }

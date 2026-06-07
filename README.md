@@ -15,12 +15,14 @@ Next.js + TypeScript 学習用サンプルアプリケーション。
 ```bash
 # 1. リポジトリをクローン
 git clone https://github.com/ryoya061111/nextjs-study.git
-cd nextjs-study
 
-# 2. 依存パッケージをインストール（全ワークスペース一括）
+# 2. フロントエンドディレクトリへ移動
+cd nextjs-study/apps/frontend
+
+# 3. 依存パッケージをインストール
 npm install
 
-# 3. 開発サーバーを起動
+# 4. 開発サーバーを起動
 npm run dev
 ```
 
@@ -31,11 +33,13 @@ npm run dev
 初回のみブラウザドライバのダウンロードが必要。
 
 ```bash
-npm run setup:e2e  # Playwrightブラウザをインストール
-npm run test:e2e   # E2Eテスト実行
+npm run playwright:install  # Playwrightブラウザをインストール（初回のみ）
+npm run test:e2e             # E2Eテスト実行
 ```
 
 ## コマンド一覧
+
+`apps/frontend/` ディレクトリで実行する。
 
 | コマンド | 説明 |
 |---------|------|
@@ -46,7 +50,7 @@ npm run test:e2e   # E2Eテスト実行
 | `npm run test` | 単体テストを実行（ウォッチモード） |
 | `npm run test:ui` | ブラウザUIでテスト結果を確認 |
 | `npm run test:e2e` | E2Eテストを実行 |
-| `npm run setup:e2e` | Playwrightブラウザを初回インストール |
+| `npm run playwright:install` | Playwrightブラウザを初回インストール |
 
 ## プロジェクト構成
 
