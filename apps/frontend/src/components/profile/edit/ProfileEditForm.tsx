@@ -16,7 +16,7 @@ import { useProfile } from '@/hooks/profile/useProfile'
 type Props = {}
 
 export const ProfileEditForm = ({}: Props) => {
-  const { profile, loading, error, updateProfile } = useProfile()
+  const { profile, loading, error, fetchProfile, updateProfile } = useProfile()
   const [saved, setSaved] = useState(false)
 
   const {
@@ -36,7 +36,11 @@ export const ProfileEditForm = ({}: Props) => {
     },
   })
 
-  // useProfile の useEffect で fetchProfile が自動的に呼ばれる
+  // マウント時に profile を取得
+  useEffect(() => {
+    fetchProfile()
+  }, [fetchProfile])
+
   // profile が取得されたら form の値を同期
   useEffect(() => {
     if (profile) {

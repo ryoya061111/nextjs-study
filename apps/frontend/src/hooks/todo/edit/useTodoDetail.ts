@@ -46,9 +46,5 @@ export const useTodoDetail = (id: string) => {
     [todo]
   )
 
-  useEffect(() => {
-    fetchTodo()
-  }, [fetchTodo])
-
-  return { todo, loading, error, updateTodo }
+  return { todo, loading, error, fetchTodo, updateTodo }
 }

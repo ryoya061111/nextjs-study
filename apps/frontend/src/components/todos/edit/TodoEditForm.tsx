@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { TodoForm } from '../shared/TodoForm'
 import { TodoFormValues } from '@/types/todo/shared/todo.schema'
@@ -13,7 +14,12 @@ interface Props {
 
 export const TodoEditForm = ({ id }: Props) => {
   const router = useRouter()
-  const { todo, loading, error, updateTodo } = useTodoDetail(id)
+  const { todo, loading, error, fetchTodo, updateTodo } = useTodoDetail(id)
+
+  // マウント時に TODO を取得
+  useEffect(() => {
+    fetchTodo()
+  }, [fetchTodo])
 
   const handleSubmit = async (data: TodoFormValues) => {
     if (!todo) return

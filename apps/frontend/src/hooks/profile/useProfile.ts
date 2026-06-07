@@ -42,9 +42,5 @@ export const useProfile = () => {
     }
   }, [])
 
-  useEffect(() => {
-    fetchProfile()
-  }, [fetchProfile])
-
   return { profile, loading, error, fetchProfile, updateProfile }
 }
