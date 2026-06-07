@@ -1,3 +1,6 @@
+// [Next.js お約束] [id] フォルダ = 動的セグメント
+// 角括弧内の名前がURLパラメータ名になる
+// /api/todos/123 にアクセスすると params.id = "123" になる
 // GET    /api/todos/[id] → 1件取得
 // PUT    /api/todos/[id] → 更新
 // DELETE /api/todos/[id] → 削除
@@ -5,6 +8,7 @@ import { NextResponse } from 'next/server'
 import { mockTodos } from '@/services/mockData'
 import { UpdateTodoRequest } from '@/types/todo.types'
 
+// [Next.js お約束] Next.js 15 から params は Promise 型 → await が必要
 type Params = { params: Promise<{ id: string }> }
 
 export async function GET(_req: Request, { params }: Params) {

@@ -1,4 +1,9 @@
-// 'use client' を付けない = Server Component（サーバーサイドで実行される）
+// [Next.js お約束] page.tsx = そのURLのページ本体
+// このファイルのURL: app/(dashboard)/todos/page.tsx → /todos
+// (dashboard) はルートグループ（URLに出ない。レイアウトのグループ分け用）
+
+// [Next.js お約束] 'use client' を付けない = Server Component（デフォルト）
+// サーバー上でのみ実行され、ブラウザには届かない
 import { todoRepository } from '@/services/todoRepository'
 import { TodoList } from '@/components/todos/TodoList'
 

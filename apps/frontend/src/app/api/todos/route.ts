@@ -1,3 +1,6 @@
+// [Next.js お約束] route.ts = API エンドポイント定義ファイル
+// 関数名が HTTP メソッド名に対応する（GET/POST/PUT/DELETE/PATCH）
+// このファイルの URL = app/api/todos/ → /api/todos
 // GET /api/todos  → 一覧取得
 // POST /api/todos → 新規作成
 import { NextResponse } from 'next/server'

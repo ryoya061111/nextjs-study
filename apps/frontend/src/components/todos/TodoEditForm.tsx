@@ -11,13 +11,16 @@ interface Props {
 }
 
 export const TodoEditForm = ({ todo }: Props) => {
-  // useRouter = クライアントサイドでページ遷移を行うフック（'next/navigation' は App Router 用）
+  // [Next.js お約束] useRouter は 'next/navigation' からインポートする（App Router 用）
+  // 'next/router' は Pages Router 用で App Router では使えない
   const router = useRouter()
 
   const handleSubmit = async (data: TodoFormValues) => {
     await todoService.update(todo.id, data)
-    router.push('/todos') // 更新後に一覧ページへ戻る
-    router.refresh() // Server Component のデータキャッシュを破棄して再フェッチする
+    router.push('/todos') // 別ページへ遷移（ブラウザの履歴に追加される）
+    // [Next.js お約束] router.refresh() = Server Component のキャッシュを破棄して再フェッチ
+    // push だけでは Server Component のデータが古いまま表示されることがある
+    router.refresh()
   }
 
   return (
