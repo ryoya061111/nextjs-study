@@ -2,7 +2,7 @@
 // API Route を経由せず mockData に直接アクセスする
 // → Server Component はデータソースに直接アクセスできる（fetchを使う必要がない）
 // ※ 将来 DB（MySQL）に繋ぐ場合もここだけ書き換えればよい
-import { mockTodos } from '@/services/todo/mockData'
+import { mockTodos } from '@/services/todo/shared/mockData'
 import { Todo } from '@/types/todo/shared/todo.types'
 
 export const todoRepository = {

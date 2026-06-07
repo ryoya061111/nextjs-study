@@ -40,7 +40,7 @@ export const TodoList = ({ initialTodos }: Props) => {
 
       {showForm && (
         <Card className="mb-6">
-          <h2 className="mb-3 font-medium">新しい TODO を作成</h2>
+          <h2 className="mb-3 font-medium text-gray-900">新しい TODO を作成</h2>
           <TodoForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
         </Card>
       )}

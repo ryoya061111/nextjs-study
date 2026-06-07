@@ -42,7 +42,7 @@ export const TodoForm = ({ defaultValues, onSubmit, onCancel }: Props) => {
         <Button type="submit" isLoading={isSubmitting}>
           {defaultValues ? '更新' : '作成'}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel}>
+        <Button type="button" variant="danger" onClick={onCancel}>
           キャンセル
         </Button>
       </div>

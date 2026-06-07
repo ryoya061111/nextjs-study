@@ -4,7 +4,7 @@
 
 // [Next.js お約束] 'use client' を付けない = Server Component（デフォルト）
 // サーバー上でのみ実行され、ブラウザには届かない
-import { todoRepository } from '@/services/todo/todoRepository'
+import { todoRepository } from '@/services/todo/shared/todoRepository'
 import { TodoList } from '@/components/todos/list/TodoList'
 
 export default async function TodosPage() {

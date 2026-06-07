@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { Todo } from '@/types/todo/shared/todo.types'
 import { TodoForm } from '../shared/TodoForm'
-import { todoService } from '@/services/todo/todoService'
+import { todoEditService } from '@/services/todo/edit/todoService'
 import { TodoFormValues } from '@/types/todo/shared/todo.schema'
 
 interface Props {
@@ -16,7 +16,7 @@ export const TodoEditForm = ({ todo }: Props) => {
   const router = useRouter()
 
   const handleSubmit = async (data: TodoFormValues) => {
-    await todoService.update(todo.id, data)
+    await todoEditService.update(todo.id, data)
     router.push('/todos') // 別ページへ遷移（ブラウザの履歴に追加される）
     // [Next.js お約束] router.refresh() = Server Component のキャッシュを破棄して再フェッチ
     // push だけでは Server Component のデータが古いまま表示されることがある
