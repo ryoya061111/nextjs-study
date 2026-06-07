@@ -3,7 +3,12 @@ import Link from 'next/link'
 type PageLink = { href: string; label: string; description: string }
 
 const PAGES: PageLink[] = [
-  { href: '/todos', label: 'TODO 一覧', description: '一覧表示・新規作成・完了切替・削除' },
+  { href: '/auth/login', label: 'ログイン', description: 'メールアドレスとパスワードで認証' },
+  {
+    href: '/todos',
+    label: 'TODO 一覧',
+    description: '一覧表示・新規作成・完了切替・削除（要ログイン）',
+  },
 ]
 
 const DEV_PAGES: PageLink[] = [

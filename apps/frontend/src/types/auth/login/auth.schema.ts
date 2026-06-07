@@ -1,0 +1,11 @@
+import { z } from 'zod'
+
+export const loginFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'メールアドレスを入力してください')
+    .email('正しいメールアドレスを入力してください'),
+  password: z.string().min(1, 'パスワードを入力してください'),
+})
+
+export type LoginFormValues = z.infer<typeof loginFormSchema>
