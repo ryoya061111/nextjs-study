@@ -1,22 +1,10 @@
+// Client Component 専用の API 呼び出し層
+// Server Component からは todoRepository を使うこと（相対URLはサーバー側で解決できない）
 import { Todo, CreateTodoRequest, UpdateTodoRequest } from '@/types/todo.types'
 
 const BASE = '/api/todos'
 
 export const todoService = {
-  // 一覧取得
-  getAll: async (): Promise<Todo[]> => {
-    const res = await fetch(BASE, { cache: 'no-store' }) // 'no-store' = キャッシュせず毎回最新を取得
-    if (!res.ok) throw new Error('一覧の取得に失敗しました')
-    return res.json()
-  },
-
-  // 1件取得
-  getById: async (id: string): Promise<Todo> => {
-    const res = await fetch(`${BASE}/${id}`, { cache: 'no-store' })
-    if (!res.ok) throw new Error('データの取得に失敗しました')
-    return res.json()
-  },
-
   // 作成
   create: async (data: CreateTodoRequest): Promise<Todo> => {
     const res = await fetch(BASE, {

@@ -1,13 +1,12 @@
 // 'use client' を付けない = Server Component（サーバーサイドで実行される）
-import { todoService } from '@/services/todoService'
+import { todoRepository } from '@/services/todoRepository'
 import { TodoList } from '@/components/todos/TodoList'
 
-// async 関数にすることで、サーバー上で await を使ったデータ取得ができる
 export default async function TodosPage() {
-  // サーバー上で fetch を実行 → HTML 生成時に初期データが埋め込まれる（SSR）
-  const initialTodos = await todoService.getAll()
+  // Server Component はデータソースに直接アクセスできる（fetch を経由する必要がない）
+  // fetch('/api/todos') は相対URLのためサーバー側では解決できずエラーになる
+  const initialTodos = todoRepository.getAll()
 
   // 取得したデータを Client Component に props として渡す
-  // Server Component → Client Component へのデータの橋渡し
   return <TodoList initialTodos={initialTodos} />
 }
