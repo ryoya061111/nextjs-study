@@ -4,11 +4,11 @@ import userEvent from '@testing-library/user-event'
 import { LoginForm } from '@/components/auth/login/LoginForm'
 
 // loginAction のモック
-vi.mock('@/app/_actions/auth', () => ({
+vi.mock('@/app/(auth)/login/actions', () => ({
   loginAction: vi.fn(),
 }))
 
-import { loginAction as originalLoginAction } from '@/app/_actions/auth'
+import { loginAction as originalLoginAction } from '@/app/(auth)/login/actions'
 
 const loginAction = originalLoginAction as ReturnType<typeof vi.fn>
 
