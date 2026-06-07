@@ -1,5 +1,5 @@
-import { TodoListFetcher } from '@/components/todos/list/TodoListFetcher'
+import { TodoList } from '@/components/todos/list/TodoList'
 
 export default function TodosPage() {
-  return <TodoListFetcher />
+  return <TodoList />
 }
