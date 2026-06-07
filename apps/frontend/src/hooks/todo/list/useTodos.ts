@@ -6,12 +6,26 @@ import { CreateTodoRequest } from '@/types/todo/list/todo.types'
 import { todoListService } from '@/services/todo/list/todoService'
 import { todoEditService } from '@/services/todo/edit/todoService'
 
-// 引数：SSR で取得した初期データを受け取る
-export const useTodos = (initialTodos: Todo[]) => {
-  // useState の初期値に SSR データを使うことで、画面表示がサーバーとクライアントで一致する
+// 引数：初期データを受け取る（SSR か空配列）
+export const useTodos = (initialTodos: Todo[] = []) => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(initialTodos.length === 0)
   const [error, setError] = useState<string | null>(null)
+
+  // 一覧取得
+  const fetchTodos = useCallback(async () => {
+    setLoading(true)
+    try {
+      const response = await fetch('/api/todos')
+      if (!response.ok) throw new Error('一覧取得に失敗しました')
+      const data = await response.json()
+      setTodos(data)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'エラーが発生しました')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   // 作成
   // useCallback：関数を再生成しないようにメモ化する。依存配列が空 = 初回のみ生成
@@ -49,5 +63,5 @@ export const useTodos = (initialTodos: Todo[]) => {
   }, [])
 
   // フック利用側が必要なものだけ取り出せるようにオブジェクトで返す
-  return { todos, loading, error, createTodo, toggleTodo, deleteTodo }
+  return { todos, loading, error, fetchTodos, createTodo, toggleTodo, deleteTodo }
 }
