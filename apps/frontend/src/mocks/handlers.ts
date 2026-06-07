@@ -1,11 +1,10 @@
 import { http, HttpResponse } from 'msw'
-import { mockTodos } from '@/services/todo/shared/mockData'
-import { mockProfile } from '@/services/profile/shared/mockProfile'
+import { mockTodos } from './mockTodos'
+import { mockProfile } from './mockProfile'
+import { Todo } from '@/types/todo/shared/todo.types'
 import { CreateTodoRequest } from '@/types/todo/list/todo.types'
-import { UpdateTodoRequest } from '@/types/todo/edit/todo.types'
 
-// ここに書いたハンドラが API Route の代わりにリクエストを処理する
-// API Route ファイルが存在していても、MSW が先にリクエストを横取りする
+// MSW handlers for mock API responses
 export const handlers = [
   // ─── Todo ───────────────────────────────────────────
 
@@ -15,7 +14,7 @@ export const handlers = [
 
   http.post('/api/todos', async ({ request }) => {
     const body = (await request.json()) as CreateTodoRequest
-    const newTodo = {
+    const newTodo: Todo = {
       id: Date.now().toString(),
       title: body.title,
       description: body.description,
@@ -28,21 +27,21 @@ export const handlers = [
   }),
 
   http.get('/api/todos/:id', ({ params }) => {
-    const todo = mockTodos.find((t) => t.id === params.id)
+    const todo = mockTodos.find((t: Todo) => t.id === params.id)
     if (!todo) return HttpResponse.json({ error: 'Not found' }, { status: 404 })
     return HttpResponse.json(todo)
   }),
 
   http.put('/api/todos/:id', async ({ params, request }) => {
-    const body = (await request.json()) as UpdateTodoRequest
-    const index = mockTodos.findIndex((t) => t.id === params.id)
+    const body = await request.json()
+    const index = mockTodos.findIndex((t: Todo) => t.id === params.id)
     if (index === -1) return HttpResponse.json({ error: 'Not found' }, { status: 404 })
     mockTodos[index] = { ...mockTodos[index], ...body, updatedAt: new Date().toISOString() }
     return HttpResponse.json(mockTodos[index])
   }),
 
   http.delete('/api/todos/:id', ({ params }) => {
-    const index = mockTodos.findIndex((t) => t.id === params.id)
+    const index = mockTodos.findIndex((t: Todo) => t.id === params.id)
     if (index === -1) return HttpResponse.json({ error: 'Not found' }, { status: 404 })
     mockTodos.splice(index, 1)
     return new HttpResponse(null, { status: 204 })
