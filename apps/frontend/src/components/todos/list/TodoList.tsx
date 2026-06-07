@@ -11,21 +11,13 @@ import { Card } from '@/components/ui/Card'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { FormErrorMessage } from '@/components/ui/FormErrorMessage'
 
-interface Props {
-  initialTodos: Todo[] // SSR で取得した初期データ（可能な場合）
-}
-
-export const TodoList = ({ initialTodos }: Props) => {
-  const { todos, loading, error, fetchTodos, createTodo, toggleTodo, deleteTodo } = useTodos(
-    initialTodos
-  )
+export const TodoList = () => {
+  const { todos, loading, error, fetchTodos, createTodo, toggleTodo, deleteTodo } = useTodos()
   const [showForm, setShowForm] = useState(false)
 
-  // 初期化時に fetchTodos を実行（SSR データがない場合）
+  // 初期化時に fetchTodos を実行
   useEffect(() => {
-    if (initialTodos.length === 0) {
-      fetchTodos()
-    }
+    fetchTodos()
   }, [])
 
   const handleCreate = async (data: TodoFormValues) => {
