@@ -6,11 +6,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=apps/frontend",
-    "build": "npm run build --workspace=apps/frontend",
-    "lint": "npm run lint --workspace=apps/frontend",
-    "test": "npm run test --workspace=apps/frontend",
-    "prepare": "husky"
+    "prepare": "husky",
+    "setup:e2e": "npm run -w apps/frontend playwright:install",
+    "dev": "npm run -w apps/frontend dev",
+    "build": "npm run -w apps/frontend build",
+    "lint": "npm run -w apps/frontend lint",
+    "format": "npm run -w apps/frontend format",
+    "test": "npm run -w apps/frontend test",
+    "test:ui": "npm run -w apps/frontend test:ui",
+    "test:e2e": "npm run -w apps/frontend test:e2e"
   },
   "devDependencies": {
     "husky": "^9.0.0",
