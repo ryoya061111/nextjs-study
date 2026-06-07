@@ -41,20 +41,9 @@ npx create-next-app@latest . \
 ```bash
 cd apps/frontend
 
-# フォームバリデーション
-npm install react-hook-form zod @hookform/resolvers
-
-# 認証
-npm install next-auth@beta
-
-# テスト（開発依存）
-npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
-
-# E2Eテスト
-npm install -D @playwright/test
-
-# コード品質
-npm install -D husky lint-staged prettier eslint-config-prettier
+# 本番依存・開発依存をまとめてインストール
+npm install react-hook-form zod @hookform/resolvers next-auth@beta
+npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @playwright/test husky lint-staged prettier eslint-config-prettier
 ```
 
 ---
