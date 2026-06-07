@@ -45,11 +45,8 @@ export const ProfileEditForm = ({}: Props) => {
   useEffect(() => {
     if (profile) {
       reset({
-        name: profile.name,
-        bio: profile.bio,
-        address: profile.address,
+        ...profile,
         links: Object.entries(profile.links).map(([key, value]) => ({ key, value })),
-        skills: profile.skills,
       })
     }
   }, [profile, reset])
