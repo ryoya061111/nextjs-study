@@ -9,6 +9,11 @@ const PAGES: PageLink[] = [
     label: 'TODO 一覧',
     description: '一覧表示・新規作成・完了切替・削除（要ログイン）',
   },
+  {
+    href: '/profile/edit',
+    label: 'プロフィール編集',
+    description: 'ネスト・マップ・リストのフォームパターン（要ログイン）',
+  },
 ]
 
 const DEV_PAGES: PageLink[] = [

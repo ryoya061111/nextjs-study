@@ -10,5 +10,5 @@ export default auth((req) => {
 
 // /todos 配下を認証必須に設定（将来のダッシュボードルートも追加していく）
 export const config = {
-  matcher: ['/todos/:path*'],
+  matcher: ['/todos/:path*', '/profile/:path*'],
 }
