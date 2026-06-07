@@ -1,4 +1,5 @@
 'use client'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -22,6 +23,7 @@ export const ProfileEditForm = ({}: Props) => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ProfileEditValues>({
     resolver: zodResolver(profileEditSchema),
@@ -33,6 +35,20 @@ export const ProfileEditForm = ({}: Props) => {
       skills: [],
     },
   })
+
+  // useProfile の useEffect で fetchProfile が自動的に呼ばれる
+  // profile が取得されたら form の値を同期
+  useEffect(() => {
+    if (profile) {
+      reset({
+        name: profile.name,
+        bio: profile.bio,
+        address: profile.address,
+        links: Object.entries(profile.links).map(([key, value]) => ({ key, value })),
+        skills: profile.skills,
+      })
+    }
+  }, [profile, reset])
 
   const onSubmit = async (data: ProfileEditValues) => {
     setSaved(false)
