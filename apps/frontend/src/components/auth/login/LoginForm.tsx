@@ -21,10 +21,14 @@ export const LoginForm = () => {
 
   const onSubmit = async (values: LoginFormValues) => {
     setServerError(null)
+    // Server Action を呼び出す（Client Component から Server Action へ）
+    // loginAction は signIn（Auth.js）を実行
     const result = await loginAction(values.email, values.password)
+    // 認証失敗時のエラーメッセージを表示
     if (result?.error) {
       setServerError(result.error)
     }
+    // 認証成功時は loginAction 内で自動的に /todos へリダイレクト
   }
 
   return (
